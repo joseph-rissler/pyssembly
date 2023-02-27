@@ -1,0 +1,8 @@
+int_set i 0
+:LOOP_START:
+print_var i
+int_add i 1
+int_gt i 10 BREAK
+goto LOOP_START
+:BREAK:
+print "Done"
