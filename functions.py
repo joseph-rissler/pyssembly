@@ -10,10 +10,27 @@ def function(f=None, name=None):
         return inner(f)
 
 @function
-def add(program, args):
-    dest, value = args.split()
+def int_add(program, dest, value):
     program.var[dest] += int(value)
 
 @function(name="print") #Avoid conflict with builtin function
-def print_(program, args):
-    print(args)
+def print_(program, *args):
+    print(*args)
+
+@function
+def print_var(program, var):
+    print(program.var[var])
+
+@function
+def int_gt(program, var, comp, dest_label):
+    if program.var[var] > int(comp):
+        program.pointer = program.labels[dest_label] - 1
+
+@function
+def int_set(program, var, value):
+    program.var[var] = int(value)
+
+@function
+def goto(program, dest_label):
+         program.pointer = program.labels[dest_label] - 1
+    
